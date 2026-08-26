@@ -1,64 +1,93 @@
-import { createClient } from '@/utils/supabase/server'
-import Link from 'next/link'
-import { Plus, Calendar, MapPin } from 'lucide-react'
+import { createClient } from "@/utils/supabase/server";
+import Link from "next/link";
+import { Plus, Calendar, MapPin, ArrowRight } from "lucide-react";
+import { StaggerContainer, StaggerItem } from "@/components/ui";
 
 export default async function EventsPage() {
-  const supabase = createClient()
-  const { data: { user } } = await supabase.auth.getUser()
+  const supabase = createClient();
+  const { data: { user } } = await supabase.auth.getUser();
 
   const { data: events } = await supabase
-    .from('events')
-    .select('*')
-    .eq('producer_id', user?.id)
-    .order('created_at', { ascending: false })
+    .from("events")
+    .select("*")
+    .eq("producer_id", user?.id)
+    .order("created_at", { ascending: false });
 
   return (
-    <div className="p-8 max-w-5xl">
+    <div className="max-w-5xl mx-auto">
+      {/* Header */}
       <div className="flex items-center justify-between mb-8">
-        <h1 className="text-2xl font-bold text-zinc-800">Meus Eventos</h1>
-        <Link 
+        <div>
+          <h1 className="text-2xl font-black text-surface-900">Meus Eventos</h1>
+          <p className="text-surface-400 mt-0.5">Gerencie seus eventos e lotes de ingressos.</p>
+        </div>
+        <Link
           href="/admin/events/new"
-          className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-md font-medium transition-colors"
+          className="flex items-center gap-2 h-10 px-5 text-sm font-bold text-white bg-gradient-to-r from-primary-700 to-primary-500 rounded-2xl shadow-soft hover:shadow-glow hover:-translate-y-px transition-all"
         >
-          <Plus size={20} />
-          <span>Criar Evento</span>
+          <Plus size={17} />
+          Novo Evento
         </Link>
       </div>
 
+      {/* Empty state */}
       {(!events || events.length === 0) ? (
-        <div className="bg-white p-12 text-center rounded-xl border border-zinc-200">
-          <p className="text-zinc-500 mb-4">Você ainda não possui eventos cadastrados.</p>
-          <Link 
+        <div className="bg-white rounded-3xl border border-surface-100 shadow-soft-sm p-16 text-center">
+          <div className="w-20 h-20 rounded-4xl bg-primary-50 flex items-center justify-center mx-auto mb-5">
+            <Calendar size={32} className="text-primary-400" />
+          </div>
+          <h3 className="text-lg font-bold text-surface-700 mb-2">Nenhum evento criado</h3>
+          <p className="text-sm text-surface-400 mb-6 max-w-xs mx-auto">
+            Crie seu primeiro evento, configure os lotes e comece a vender.
+          </p>
+          <Link
             href="/admin/events/new"
-            className="text-orange-500 font-medium hover:underline"
+            className="inline-flex items-center gap-2 h-11 px-6 text-sm font-bold text-white bg-gradient-to-r from-primary-700 to-primary-500 rounded-2xl shadow-soft hover:shadow-glow transition-all"
           >
+            <Plus size={16} />
             Criar meu primeiro evento
           </Link>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
           {events.map((event) => (
-            <Link key={event.id} href={`/admin/events/${event.id}`}>
-              <div className="bg-white p-6 rounded-xl border border-zinc-200 shadow-sm hover:shadow-md transition-shadow cursor-pointer h-full flex flex-col">
-                <h3 className="text-xl font-bold text-zinc-800 mb-2">{event.name}</h3>
-                
-                <div className="space-y-2 mt-auto pt-4 text-sm text-zinc-600">
-                  <div className="flex items-center gap-2">
-                    <Calendar size={16} />
-                    <span>{new Date(event.start_date).toLocaleDateString('pt-BR')}</span>
-                  </div>
-                  {event.location && (
-                    <div className="flex items-center gap-2">
-                      <MapPin size={16} />
-                      <span className="truncate">{event.location}</span>
-                    </div>
+            <StaggerItem key={event.id}>
+              <Link href={`/admin/events/${event.id}`}>
+                <div className="bg-white rounded-3xl border border-surface-100 shadow-soft-sm hover:shadow-soft-md hover:-translate-y-1 transition-all duration-300 p-6 cursor-pointer h-full flex flex-col group">
+                  {/* Color accent bar */}
+                  <div
+                    className="w-8 h-1.5 rounded-full mb-4 transition-all group-hover:w-12"
+                    style={{ backgroundColor: event.checkout_primary_color || "#2563eb" }}
+                  />
+
+                  <h3 className="text-lg font-bold text-surface-900 mb-1 line-clamp-2">{event.name}</h3>
+                  {event.description && (
+                    <p className="text-sm text-surface-400 line-clamp-2 mb-4 leading-relaxed">{event.description}</p>
                   )}
+
+                  <div className="mt-auto pt-4 space-y-2">
+                    <div className="flex items-center gap-2 text-sm text-surface-400">
+                      <Calendar size={14} />
+                      <span>{new Date(event.start_date).toLocaleDateString("pt-BR", { day: "numeric", month: "long", year: "numeric" })}</span>
+                    </div>
+                    {event.location && (
+                      <div className="flex items-center gap-2 text-sm text-surface-400">
+                        <MapPin size={14} />
+                        <span className="truncate">{event.location}</span>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="flex items-center gap-1 mt-4 text-xs font-semibold text-primary-600 group-hover:gap-2 transition-all">
+                    Ver detalhes
+                    <ArrowRight size={13} />
+                  </div>
                 </div>
-              </div>
-            </Link>
+              </Link>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
       )}
     </div>
-  )
+  );
 }

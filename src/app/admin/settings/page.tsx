@@ -1,68 +1,123 @@
-import { createClient } from '@/utils/supabase/server'
-import { saveProducerSettings } from './actions'
+import { createClient } from "@/utils/supabase/server";
+import { saveProducerSettings } from "./actions";
+import { Key, User, AlertCircle, Info } from "lucide-react";
 
 export default async function SettingsPage() {
-  const supabase = createClient()
-  const { data: { user } } = await supabase.auth.getUser()
+  const supabase = createClient();
+  const { data: { user } } = await supabase.auth.getUser();
 
   const { data: producer } = await supabase
-    .from('producers')
-    .select('*')
-    .eq('id', user?.id)
-    .single()
+    .from("producers")
+    .select("*")
+    .eq("id", user?.id)
+    .single();
 
   return (
-    <div className="p-8 max-w-2xl">
-      <h1 className="text-2xl font-bold text-zinc-800 mb-6">Configurações da Produtora</h1>
-
-      <div className="bg-white p-6 rounded-xl border border-zinc-200 shadow-sm">
-        <form action={saveProducerSettings} className="space-y-4">
-          
-          <div>
-            <label className="block text-sm font-medium text-zinc-700 mb-1">Nome da Produtora</label>
-            <input 
-              name="name" 
-              defaultValue={producer?.name || ''} 
-              className="w-full rounded-md border border-zinc-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
-              required
-            />
-          </div>
-
-          <hr className="my-6 border-zinc-200" />
-          <h2 className="text-lg font-semibold text-zinc-800">Integração Mercado Pago</h2>
-          <p className="text-sm text-zinc-500 mb-4">Insira suas credenciais de produção do Mercado Pago para receber os pagamentos diretamente na sua conta (Taxa 0% Sphera).</p>
-
-          <div>
-            <label className="block text-sm font-medium text-zinc-700 mb-1">Public Key</label>
-            <input 
-              name="mp_public_key" 
-              defaultValue={producer?.mp_public_key || ''} 
-              className="w-full rounded-md border border-zinc-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
-              placeholder="APP_USR-..."
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-zinc-700 mb-1">Access Token</label>
-            <input 
-              name="mp_access_token" 
-              type="password"
-              defaultValue={producer?.mp_access_token || ''} 
-              className="w-full rounded-md border border-zinc-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
-              placeholder="APP_USR-..."
-            />
-          </div>
-
-          <div className="pt-4">
-            <button 
-              type="submit" 
-              className="bg-orange-500 hover:bg-orange-600 text-white font-medium py-2 px-4 rounded-md transition-colors"
-            >
-              Salvar Configurações
-            </button>
-          </div>
-        </form>
+    <div className="max-w-2xl mx-auto">
+      {/* Header */}
+      <div className="mb-8">
+        <h1 className="text-2xl font-black text-surface-900">Configurações</h1>
+        <p className="text-surface-400 mt-0.5">Gerencie o perfil da sua produtora e integrações.</p>
       </div>
+
+      <form action={saveProducerSettings} className="space-y-5">
+
+        {/* Profile Section */}
+        <div className="bg-white rounded-4xl border border-surface-100 shadow-soft-sm p-7">
+          <div className="flex items-center gap-2.5 mb-6">
+            <div className="w-8 h-8 rounded-2xl bg-primary-50 flex items-center justify-center">
+              <User size={16} className="text-primary-600" />
+            </div>
+            <h2 className="text-base font-bold text-surface-900">Perfil da Produtora</h2>
+          </div>
+
+          <div className="space-y-4">
+            <div className="space-y-1.5">
+              <label className="text-xs font-bold text-surface-400 uppercase tracking-wide">
+                Nome da Produtora
+              </label>
+              <input
+                name="name"
+                defaultValue={producer?.name ?? ""}
+                placeholder="Ex: Produções Ltda."
+                className="w-full h-11 px-4 bg-surface-50 border-2 border-surface-200 rounded-2xl text-sm font-medium text-surface-900 placeholder:text-surface-300 focus:outline-none focus:border-primary-500 focus:ring-4 focus:ring-primary-100 transition-all"
+              />
+            </div>
+
+            <div className="space-y-1.5">
+              <label className="text-xs font-bold text-surface-400 uppercase tracking-wide">
+                E-mail (conta)
+              </label>
+              <input
+                disabled
+                value={user?.email ?? ""}
+                className="w-full h-11 px-4 bg-surface-100 border-2 border-surface-100 rounded-2xl text-sm font-medium text-surface-400 cursor-not-allowed"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Mercado Pago Section */}
+        <div className="bg-white rounded-4xl border border-surface-100 shadow-soft-sm p-7">
+          <div className="flex items-center gap-2.5 mb-2">
+            <div className="w-8 h-8 rounded-2xl bg-emerald-50 flex items-center justify-center">
+              <Key size={16} className="text-emerald-600" />
+            </div>
+            <h2 className="text-base font-bold text-surface-900">Mercado Pago</h2>
+          </div>
+          <p className="text-sm text-surface-400 mb-6 pl-10">
+            Suas credenciais são criptografadas e nunca expostas ao público.
+          </p>
+
+          {/* Info box */}
+          <div className="flex items-start gap-3 bg-primary-50 border border-primary-100 rounded-2xl p-4 mb-6">
+            <Info size={16} className="text-primary-500 shrink-0 mt-0.5" />
+            <div className="text-xs text-primary-700 leading-relaxed">
+              <strong>Onde encontrar?</strong> Acesse sua conta Mercado Pago →{" "}
+              <em>Seu Negócio</em> → <em>Configurações</em> → <em>Credenciais</em>.
+              Use o ambiente de{" "}
+              <strong>Produção</strong> para cobrar de verdade.
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            <div className="space-y-1.5">
+              <label className="text-xs font-bold text-surface-400 uppercase tracking-wide">
+                Access Token (Produção)
+              </label>
+              <input
+                name="mp_access_token"
+                type="password"
+                defaultValue={producer?.mp_access_token ?? ""}
+                placeholder="APP_USR-..."
+                autoComplete="off"
+                className="w-full h-11 px-4 bg-surface-50 border-2 border-surface-200 rounded-2xl text-sm font-medium text-surface-900 placeholder:text-surface-300 focus:outline-none focus:border-primary-500 focus:ring-4 focus:ring-primary-100 transition-all font-mono"
+              />
+            </div>
+
+            <div className="space-y-1.5">
+              <label className="text-xs font-bold text-surface-400 uppercase tracking-wide">
+                Public Key (Produção)
+              </label>
+              <input
+                name="mp_public_key"
+                defaultValue={producer?.mp_public_key ?? ""}
+                placeholder="APP_USR-..."
+                autoComplete="off"
+                className="w-full h-11 px-4 bg-surface-50 border-2 border-surface-200 rounded-2xl text-sm font-medium text-surface-900 placeholder:text-surface-300 focus:outline-none focus:border-primary-500 focus:ring-4 focus:ring-primary-100 transition-all font-mono"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Submit */}
+        <button
+          type="submit"
+          className="w-full h-12 bg-gradient-to-r from-primary-700 to-primary-500 text-white font-bold rounded-2xl shadow-soft hover:shadow-glow transition-all hover:-translate-y-px active:scale-[0.98] text-sm"
+        >
+          Salvar Configurações
+        </button>
+      </form>
     </div>
-  )
+  );
 }
