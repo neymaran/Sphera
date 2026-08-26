@@ -1,14 +1,17 @@
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any */
 import { createClient } from '@supabase/supabase-js'
+
+export const dynamic = 'force-dynamic'
 import { NextResponse } from 'next/server'
 
 // Usamos uma client instance anon para as rotas públicas (que lê apenas dados liberados via RLS)
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-)
+
 
 export async function GET(request: Request, { params }: { params: { id: string } }) {
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  )
   const { id } = params
 
   try {
