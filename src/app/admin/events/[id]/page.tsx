@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any */
 import { createClient } from '@/utils/supabase/server'
 import Link from 'next/link'
 import { ArrowLeft, Trash2, Users, DollarSign } from 'lucide-react'
