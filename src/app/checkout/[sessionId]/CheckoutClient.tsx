@@ -99,7 +99,7 @@ export default function CheckoutClient({
       <div className={isProcessing ? 'opacity-50 pointer-events-none' : ''}>
         <Payment
           initialization={initialization}
-          customization={customization}
+          customization={customization as any}
           onSubmit={onSubmit}
           onError={onError}
         />

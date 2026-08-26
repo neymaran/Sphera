@@ -176,11 +176,11 @@ export default function PortariaPage() {
             <button onClick={() => setQrScannerOpen(false)} className="bg-white/10 p-2 rounded-full text-white"><XCircle size={32} /></button>
           </div>
           <div className="flex-1 relative">
-             <QrScanner onScan={(result) => { 
+             <QrScanner onResult={(result) => { 
                 setQrScannerOpen(false); 
                 setBusca(result);
                 buscarIngresso();
-             }} />
+             }} onClose={() => setQrScannerOpen(false)} />
           </div>
         </div>
       )}
