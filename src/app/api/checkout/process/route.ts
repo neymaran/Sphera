@@ -2,8 +2,8 @@
 import { createClient } from '@supabase/supabase-js'
 
 export const dynamic = 'force-dynamic'
-import { NextResponse } from 'next/server'
 import { MercadoPagoConfig, Payment } from 'mercadopago'
+import { sendTicketEmail } from '@/lib/email'
 
 
 
@@ -61,13 +61,32 @@ export async function POST(request: Request) {
 
     const mpResponse = await payment.create({ body: paymentData })
 
-    // Se o pagamento for aprovado instantaneamente (Cartão/Pix recebido na hora) ou pendente (Pix aguardando)
+    // Se o pagamento for aprovado instantaneamente (Cartão/Pix recebido na hora)
     if (mpResponse.status === 'approved') {
       // Atualizar tickets para paid
       await supabase
         .from('tickets')
         .update({ status: 'paid' })
         .eq('payment_session_id', sessionId)
+
+      // Enviar e-mail de confirmação com Resend (remetente info@naryen.com)
+      try {
+        const buyerEmail = tickets[0]?.buyer_email
+        if (buyerEmail) {
+          await sendTicketEmail({
+            to: buyerEmail,
+            eventName: event.name,
+            buyerEmail: buyerEmail,
+            sessionId: sessionId,
+            tickets: tickets.map((t: any) => ({
+              owner_name: t.owner_name,
+              ticket_type_name: t.ticket_types?.name,
+            })),
+          })
+        }
+      } catch (emailErr) {
+        console.error('Erro ao enviar e-mail de confirmação via Resend:', emailErr)
+      }
     }
 
     return NextResponse.json({
