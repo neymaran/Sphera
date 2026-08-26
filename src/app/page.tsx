@@ -69,9 +69,9 @@ export default function HomePage() {
         </div>
 
         <div className="relative max-w-4xl mx-auto space-y-8">
-          <div className="inline-flex items-center gap-2 bg-primary-50 border border-primary-200 rounded-full px-4 py-1.5 text-sm font-semibold text-primary-700">
-            <span className="w-2 h-2 rounded-full bg-primary-500 animate-pulse" />
-            by Naryen Tecnologia
+          <div className="inline-flex items-center gap-2.5 bg-white border border-surface-200 shadow-soft-sm rounded-full px-4 py-1.5 text-sm font-semibold text-surface-700">
+            <img src="/naryen-logo.png" alt="Naryen Tecnologia Logo" className="w-5 h-5 object-contain" />
+            by <span className="font-bold text-surface-900">Naryen Tecnologia</span>
           </div>
 
           <h1 className="text-5xl md:text-7xl font-black text-surface-900 leading-[1.05] tracking-tight">
@@ -132,14 +132,13 @@ export default function HomePage() {
       {/* ─── Footer ──────────────────────────────────── */}
       <footer className="border-t border-surface-200 py-8 px-6">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-xl bg-gradient-to-br from-primary-700 to-primary-500 flex items-center justify-center">
-              <div className="w-2.5 h-2.5 rounded-full bg-white/90" />
-            </div>
-            <span className="font-black text-sm text-surface-400">Sphera</span>
+          <div className="flex items-center gap-2.5">
+            <img src="/naryen-logo.png" alt="Naryen Logo" className="w-6 h-6 object-contain" />
+            <span className="font-black text-sm text-surface-900">Sphera</span>
           </div>
-          <p className="text-sm text-surface-400">
-            © 2024 Naryen Tecnologia. Todos os direitos reservados.
+          <p className="text-sm text-surface-400 flex items-center gap-1.5">
+            <span>© {new Date().getFullYear()}</span>
+            <span className="font-semibold text-surface-600">Naryen Tecnologia</span>. Todos os direitos reservados.
           </p>
         </div>
       </footer>

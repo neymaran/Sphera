@@ -34,13 +34,16 @@ export default function LoginPage({
       >
         {/* Logo */}
         <div className="text-center mb-8">
-          <Link href="/" className="inline-flex flex-col items-center gap-3 group">
-            <div className="w-16 h-16 rounded-[22px] bg-gradient-to-br from-primary-700 to-primary-400 shadow-glow flex items-center justify-center group-hover:shadow-glow-lg transition-shadow">
-              <div className="w-7 h-7 rounded-full bg-white/90 shadow-sm" />
+          <Link href="/" className="inline-flex flex-col items-center gap-2.5 group">
+            <div className="w-16 h-16 rounded-3xl bg-white border border-surface-200 shadow-soft-md flex items-center justify-center group-hover:scale-105 transition-transform p-3">
+              <img src="/naryen-logo.png" alt="Naryen Tecnologia Logo" className="w-full h-full object-contain" />
             </div>
             <h1 className="text-3xl font-black text-surface-900">Sphera</h1>
           </Link>
-          <p className="text-surface-400 text-sm mt-1">by Naryen Tecnologia</p>
+          <p className="text-surface-400 text-xs font-semibold uppercase tracking-wider mt-1 flex items-center justify-center gap-1.5">
+            <span>by</span>
+            <span className="font-bold text-surface-700">Naryen Tecnologia</span>
+          </p>
         </div>
 
         {/* Mode Tab Toggle */}

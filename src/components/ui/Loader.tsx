@@ -136,19 +136,9 @@ export function SpheraSplash({ onFinish }: { onFinish?: () => void }) {
       >
         {/* Icon */}
         <div className="relative">
-          <div className="w-20 h-20 rounded-[28px] bg-white/15 backdrop-blur border border-white/30 flex items-center justify-center shadow-soft-xl">
-            <div className="w-10 h-10 rounded-full bg-white/90 shadow-glow" />
+          <div className="w-20 h-20 rounded-[28px] bg-white/20 backdrop-blur border border-white/40 flex items-center justify-center shadow-soft-xl p-3.5">
+            <img src="/naryen-logo.png" alt="Naryen Tecnologia Logo" className="w-full h-full object-contain" />
           </div>
-          <motion.div
-            className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-primary-300"
-            animate={{ scale: [1, 1.3, 1] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-          />
-          <motion.div
-            className="absolute -bottom-1 -left-1 w-3.5 h-3.5 rounded-full bg-white/60"
-            animate={{ scale: [1, 1.4, 1] }}
-            transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
-          />
         </div>
 
         {/* Name */}

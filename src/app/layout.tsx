@@ -14,6 +14,11 @@ const outfit = Outfit({
 export const metadata: Metadata = {
   title: "Sphera — Plataforma de Ingressos",
   description: "A plataforma SaaS de venda de ingressos da Naryen Tecnologia",
+  icons: {
+    icon: "/naryen-logo.png",
+    shortcut: "/naryen-logo.png",
+    apple: "/naryen-logo.png",
+  },
 };
 
 export default function RootLayout({

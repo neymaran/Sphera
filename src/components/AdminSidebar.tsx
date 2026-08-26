@@ -30,11 +30,9 @@ function SidebarContent({
   return (
     <div className="flex flex-col h-full">
       {/* Logo */}
-      <div className="h-16 flex items-center px-5 border-b border-surface-100">
+      <div className="h-16 flex items-center justify-between px-5 border-b border-surface-100">
         <Link href="/admin" className="flex items-center gap-2.5 group">
-          <div className="w-8 h-8 rounded-2xl bg-gradient-to-br from-primary-700 to-primary-500 shadow-glow flex items-center justify-center group-hover:shadow-glow-lg transition-shadow">
-            <div className="w-3.5 h-3.5 rounded-full bg-white/90" />
-          </div>
+          <img src="/naryen-logo.png" alt="Naryen Logo" className="w-7 h-7 object-contain group-hover:scale-105 transition-transform" />
           <span className="font-black text-xl text-surface-900">Sphera</span>
         </Link>
       </div>
@@ -149,10 +147,8 @@ export function AdminSidebarClient({
           >
             <Menu size={20} />
           </button>
-          <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-xl bg-gradient-to-br from-primary-700 to-primary-500 flex items-center justify-center">
-              <div className="w-2.5 h-2.5 rounded-full bg-white/90" />
-            </div>
+          <div className="flex items-center gap-2.5">
+            <img src="/naryen-logo.png" alt="Naryen Logo" className="w-6 h-6 object-contain" />
             <span className="font-black text-lg text-surface-900">Sphera</span>
           </div>
         </div>
