@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 import "./globals.css";
-
+import { NavigationProgressBar } from "@/components/NavigationProgressBar";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -23,6 +23,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className={outfit.variable}>
       <body className="font-sans bg-surface-50 text-foreground antialiased">
+        <NavigationProgressBar />
         {children}
       </body>
     </html>
