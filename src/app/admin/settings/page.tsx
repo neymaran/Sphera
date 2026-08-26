@@ -1,6 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import { saveProducerSettings } from "./actions";
-import { Key, User, AlertCircle, Info } from "lucide-react";
+import { Key, User, Info } from "lucide-react";
 
 export default async function SettingsPage() {
   const supabase = createClient();
