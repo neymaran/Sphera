@@ -1,6 +1,7 @@
 import { createEvent } from "../actions";
 import Link from "next/link";
 import { ArrowLeft, Calendar, MapPin, FileText, Palette, Type } from "lucide-react";
+import { SubmitButton } from "@/components/ui";
 
 export default function NewEventPage() {
   return (
@@ -117,12 +118,9 @@ export default function NewEventPage() {
 
           {/* Submit */}
           <div className="pt-2">
-            <button
-              type="submit"
-              className="w-full h-12 bg-gradient-to-r from-primary-700 to-primary-500 text-white font-bold rounded-2xl shadow-soft hover:shadow-glow transition-all hover:-translate-y-px active:scale-[0.98] text-sm"
-            >
+            <SubmitButton size="lg" loadingText="Criando evento...">
               Criar Evento e Gerenciar Lotes →
-            </button>
+            </SubmitButton>
           </div>
         </form>
       </div>

@@ -2,7 +2,8 @@ import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
 import { ArrowLeft, Trash2, Users, Copy } from "lucide-react";
 import { createTicketType, deleteTicketType } from "./actions";
-import { StaggerContainer, StaggerItem } from "@/components/ui";
+import { StaggerContainer, StaggerItem, SubmitButton } from "@/components/ui";
+
 
 export default async function EventDetailsPage({ params }: { params: { id: string } }) {
   const supabase = createClient();
@@ -173,12 +174,9 @@ export default async function EventDetailsPage({ params }: { params: { id: strin
                 />
               </div>
 
-              <button
-                type="submit"
-                className="w-full h-10 bg-gradient-to-r from-primary-700 to-primary-500 text-white font-bold rounded-2xl shadow-soft hover:shadow-glow transition-all hover:-translate-y-px active:scale-[0.98] text-sm"
-              >
+              <SubmitButton loadingText="Salvando lote...">
                 Salvar Lote
-              </button>
+              </SubmitButton>
             </form>
           </div>
         </div>

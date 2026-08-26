@@ -5,6 +5,8 @@ import { login, signup } from "./actions";
 import { motion, AnimatePresence } from "framer-motion";
 import { Mail, Lock, ArrowRight, Eye, EyeOff, Sparkles } from "lucide-react";
 import Link from "next/link";
+import { SubmitButton } from "@/components/ui";
+
 
 export default function LoginPage({
   searchParams,
@@ -145,29 +147,33 @@ export default function LoginPage({
                 <div className="pt-2 space-y-3">
                   <AnimatePresence mode="wait">
                     {isLogin ? (
-                      <motion.button
-                        key="login-btn"
-                        formAction={login}
-                        className="w-full h-12 bg-gradient-to-r from-primary-700 to-primary-500 text-white font-bold rounded-2xl shadow-soft hover:shadow-glow transition-all hover:-translate-y-px active:scale-[0.98] flex items-center justify-center gap-2"
+                      <motion.div
+                        key="login-form-btn"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                       >
-                        Entrar na conta
-                        <ArrowRight size={18} />
-                      </motion.button>
+                        <SubmitButton
+                          loadingText="Entrando..."
+                          rightIcon={<ArrowRight size={18} />}
+                        >
+                          Entrar na conta
+                        </SubmitButton>
+                      </motion.div>
                     ) : (
-                      <motion.button
-                        key="signup-btn"
-                        formAction={signup}
-                        className="w-full h-12 bg-gradient-to-r from-primary-700 to-primary-500 text-white font-bold rounded-2xl shadow-soft hover:shadow-glow transition-all hover:-translate-y-px active:scale-[0.98] flex items-center justify-center gap-2"
+                      <motion.div
+                        key="signup-form-btn"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                       >
-                        <Sparkles size={18} />
-                        Criar minha conta
-                      </motion.button>
+                        <SubmitButton
+                          loadingText="Criando conta..."
+                          leftIcon={<Sparkles size={18} />}
+                        >
+                          Criar minha conta
+                        </SubmitButton>
+                      </motion.div>
                     )}
                   </AnimatePresence>
 

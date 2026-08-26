@@ -8,3 +8,4 @@ export { Skeleton, SkeletonCard, SkeletonTable, SkeletonStatCard } from "./Skele
 export { PageTransition, StaggerContainer, StaggerItem }  from "./PageTransition";
 export { Modal, BottomSheet }                             from "./Modal";
 export { SpheraLoader, SpheraSplash }                     from "./Loader";
+export { SubmitButton }                                   from "./SubmitButton";

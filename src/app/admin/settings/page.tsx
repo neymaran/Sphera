@@ -1,6 +1,8 @@
 import { createClient } from "@/utils/supabase/server";
 import { saveProducerSettings } from "./actions";
 import { Key, User, Info } from "lucide-react";
+import { SubmitButton } from "@/components/ui";
+
 
 export default async function SettingsPage() {
   const supabase = createClient();
@@ -111,12 +113,9 @@ export default async function SettingsPage() {
         </div>
 
         {/* Submit */}
-        <button
-          type="submit"
-          className="w-full h-12 bg-gradient-to-r from-primary-700 to-primary-500 text-white font-bold rounded-2xl shadow-soft hover:shadow-glow transition-all hover:-translate-y-px active:scale-[0.98] text-sm"
-        >
+        <SubmitButton size="lg" loadingText="Salvando...">
           Salvar Configurações
-        </button>
+        </SubmitButton>
       </form>
     </div>
   );
